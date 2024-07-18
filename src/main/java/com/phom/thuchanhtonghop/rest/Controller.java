@@ -29,8 +29,8 @@ public class Controller {
     public List<Student> all() {
         List<Student> students = StudentService.findAll();
         if (students.size() > 0) {
-           return students;
-        }else{
+            return students;
+        } else {
             try {
                 throw new Exception("Khong co sinh vien nao");
             } catch (Exception e) {
@@ -42,10 +42,9 @@ public class Controller {
     @GetMapping("/students/{id}")
     public ResponseEntity<Student> findById(@PathVariable int id) {
         Student student = StudentService.findById(id);
-        if(student != null) {
+        if (student != null) {
             return ResponseEntity.ok(student);
-        }
-        else{
+        } else {
             try {
                 throw new Exception("Khong co sinh vien nao co id = " + id);
             } catch (Exception e) {
@@ -54,10 +53,24 @@ public class Controller {
         }
     }
 
-    @PostMapping("/test")
+    @PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody Student student) {
         student.setId(0);
         StudentService.save(student);
         return ResponseEntity.status(HttpStatus.CREATED.value()).body(student);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student student) {
+        Student existingStudent = StudentService.findById(id);
+        if (existingStudent != null) {
+            existingStudent.setName(student.getName());
+            existingStudent.setAge(student.getAge());
+            StudentService.update(student);
+            return ResponseEntity.status(HttpStatus.OK.value()).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).build();
+        }
+    }
+
 }

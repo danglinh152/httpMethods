@@ -38,15 +38,8 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public void update(Student student) {
-        Scanner sc = new Scanner(System.in);
-        sc.nextLine();
-        System.out.println("Nhap ten moi: ");
-        String name = sc.nextLine();
-        student.setName(name);
-        System.out.println("Nhap tuoi moi: ");
-        int age = sc.nextInt();
-        student.setAge(age);
         em.merge(student);
+        em.flush();
     }
 
     @Override
