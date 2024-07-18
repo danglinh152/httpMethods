@@ -73,4 +73,20 @@ public class Controller {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Student> deleteStudent(@PathVariable int id) {
+        try {
+            //  Block of code to try
+            StudentService.deleteById(id);
+        } catch (Exception e) {
+            //  Block of code to handle errors
+            try {
+                throw new Exception("Khong tim thay sv co id = " + id);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK.value()).build();
+    }
+
 }
