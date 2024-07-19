@@ -41,6 +41,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getByAge(int age) {
+        return StudentRepository.findByAge(age);
+    }
+
+    @Override
+    public List<Student> getByName(String name) {
+        return StudentRepository.findByName(name);
+    }
+
+    @Override
+    public List<Student> getByNotName(String name) {
+        return StudentRepository.findByNameNot(name);
+    }
+
+    @Override
     public List<Student> findAll() {
         return StudentRepository.findAll();
     }

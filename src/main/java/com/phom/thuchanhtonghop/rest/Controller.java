@@ -3,6 +3,7 @@ package com.phom.thuchanhtonghop.rest;
 import com.phom.thuchanhtonghop.service.StudentService;
 import com.phom.thuchanhtonghop.entity.Student;
 import com.phom.thuchanhtonghop.service.StudentServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Controller {
     private StudentService StudentService;
 
+    @Autowired
     public Controller(StudentService StudentService) {
         this.StudentService = StudentService;
     }
@@ -40,7 +42,7 @@ public class Controller {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> findById(@PathVariable int id) {
+    public ResponseEntity<Student> getById(@PathVariable int id) {
         Student student = StudentService.getById(id);
         if (student != null) {
             System.out.println(student);
@@ -48,6 +50,48 @@ public class Controller {
         } else {
             try {
                 throw new Exception("Khong co sinh vien nao co id = " + id);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @GetMapping("/age/{age}")
+    public List<Student> findByAge(@PathVariable int age) {
+        List<Student> listOfStu = StudentService.getByAge(age);
+        if (!listOfStu.isEmpty()) {
+            return listOfStu;
+        } else {
+            try {
+                throw new Exception("Khong co sinh vien nao co tuoi = " + age);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @GetMapping("/name/{name}")
+    public List<Student> findByName(@PathVariable String name) {
+        List<Student> listOfStu = StudentService.getByName(name);
+        if (!listOfStu.isEmpty()) {
+            return listOfStu;
+        } else {
+            try {
+                throw new Exception("Khong co sinh vien nao co ten = " + name);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @GetMapping("/notname/{name}")
+    public List<Student> findByNotName(@PathVariable String name) {
+        List<Student> listOfStu = StudentService.getByNotName(name);
+        if (!listOfStu.isEmpty()) {
+            return listOfStu;
+        } else {
+            try {
+                throw new Exception("Khong co sinh vien nao co ten = " + name);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
