@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/students")
 public class Controller {
     private StudentService StudentService;
 
@@ -25,10 +25,10 @@ public class Controller {
     }
 
 
-    @GetMapping("/students")
+    @GetMapping("")
     public List<Student> all() {
         List<Student> students = StudentService.findAll();
-        if (students.size() > 0) {
+        if (!students.isEmpty()) {
             return students;
         } else {
             try {
@@ -39,10 +39,11 @@ public class Controller {
         }
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Student> findById(@PathVariable int id) {
-        Student student = StudentService.findById(id);
+        Student student = StudentService.getById(id);
         if (student != null) {
+            System.out.println(student);
             return ResponseEntity.ok(student);
         } else {
             try {
@@ -62,7 +63,7 @@ public class Controller {
 
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student student) {
-        Student existingStudent = StudentService.findById(id);
+        Student existingStudent = StudentService.getById(id);
         if (existingStudent != null) {
             existingStudent.setName(student.getName());
             existingStudent.setAge(student.getAge());

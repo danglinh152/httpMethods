@@ -11,20 +11,30 @@ public class Student {
     @Column(name = "id", length = 10, nullable = false)
     private int id;
 
+
     @Column(name = "name", length = 50)
     private String name;
+
 
     @Column(name = "age", length = 10, nullable = true)
     private int age;
 
-    public Student() {
-
+    public Student(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
     }
 
-    public Student(int id, int age, String name) {
-        this.id = id;
-        this.age = age;
+    public Student() {
+    }
+
+    public Student(String name, int age) {
         this.name = name;
+        this.age = age;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,13 +57,9 @@ public class Student {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
-        return "student{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
