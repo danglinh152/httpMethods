@@ -2,9 +2,7 @@ package com.phom.thuchanhtonghop.rest;
 
 import com.phom.thuchanhtonghop.service.StudentService;
 import com.phom.thuchanhtonghop.entity.Student;
-import com.phom.thuchanhtonghop.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/students")
 public class Controller {
     private StudentService StudentService;
 
